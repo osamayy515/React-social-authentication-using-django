@@ -178,6 +178,7 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'your_client_id_key'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'your_secret_key'
+
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
