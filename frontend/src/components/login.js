@@ -1,6 +1,6 @@
 import React from 'react'
-import {Link, Navigate} from 'react-router-dom'
-import styled from "styled-components";
+import {Link, Navigate} from 'react'
+import styled from "react-dom";
 
 const Login = () => {
     return (

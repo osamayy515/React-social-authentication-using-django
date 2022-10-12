@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link, Navigate} from 'react-router-dom'
+import {Link, Navigate} from 'react'
 
-import styled from "styled-components";
+import styled from "react-dom";
 
 const Signup = () => {
     return (
