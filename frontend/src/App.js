@@ -15,16 +15,18 @@ import Home from "./components/home";
 function App() {
   return (
     <div>
-      <BrowserRouter>
-        <Layout>
-        <Routes>
-            <Route exact path="/" element={<Welcome />} />
-            <Route exact path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-        </Routes>
-        </Layout>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Layout>
+          <Routes>
+              <Route exact path="/" element={<Welcome />} />
+              <Route exact path="/home" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+          </Routes>
+          </Layout>
+        </BrowserRouter>
+      </Provider>
     </div>
   );
 }
