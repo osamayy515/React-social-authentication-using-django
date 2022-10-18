@@ -1,14 +1,31 @@
-import React from 'react'
-import {Link, Navigate} from 'react'
-import styled from "react-dom";
+import React, {useEffect, useState} from 'react'
+import {Link, Navigate} from 'react-router-dom'
+import {connect, useDispatch} from 'react-redux'
+import {login} from "../reducers/auth";
+import styled from "styled-components";
+import axios from "axios";
 
-const Login = () => {
+const Login = ({ isAuthenticated}) => {
+    const loginWithGoogle = async () =>{
+        try{
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}/home`)
+            window.location.replace(res.data.authorization_url)
+
+        }catch(err){
+            console.log("Error logging in")
+        }
+    }
+  
+    if(isAuthenticated){
+        return <Navigate to="/home" />
+    }
     return (
         <div className="container mt-4">
             <h1>Sign In</h1>
             <p>Log into your account now.</p>
-           
-            <Google className="btn btn-secondary" >
+
+
+            <Google className="btn btn-secondary" onClick={loginWithGoogle} >
                 <img src="/images/google.svg" alt=""/>
                 Continue with Google.
             </Google>
@@ -37,4 +54,9 @@ const Google = styled.button`
     color: rgba(0, 0, 0, 0.75);
   }
 `
-export default Login
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+
+})
+
+export default connect(mapStateToProps, null)(Login);
