@@ -4,7 +4,7 @@ import {
     GOOGLE_AUTH_SUCCESS,
     LOGOUT,
  
-} from "./types";
+} from "./actions/types";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
