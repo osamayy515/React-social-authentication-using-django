@@ -1,43 +1,42 @@
 import {
 
-    GOOGLE_AUTH_FAIL,
+    GOOGLE_AUTH_FAIL, 
     GOOGLE_AUTH_SUCCESS,
     LOGOUT,
- 
-} from "./actions/types";
+    
+} from "../actions/types";
 
-import axios from "axios";
-axios.defaults.withCredentials = true;
 
-export const googleAuthenticate = (state, code) => async dispatch =>{
-    if( state && code && !localStorage.getItem('access')){
-        const config = {
-            headers: {
-                'Content-Type':'application/x-www-form-urlencoded'
-            }}
-        const details = {
-                'state': state,
-                'code':code
-        }
-        const formBody = Object.keys(details).map(key=> encodeURIComponent(key)+'='+encodeURIComponent(details[key])).join('&')
-        try{
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?${formBody}`, config);
-            console.log(res.data)
-            dispatch({
-                type:GOOGLE_AUTH_SUCCESS,
-                payload: res.data
-            })
-        }catch(err){
-            dispatch({
-                type:GOOGLE_AUTH_FAIL
-            })
-            console.log(err)
-        }
-    }
+const initialState = {
+    access: localStorage.getItem('access'),
+    refresh: localStorage.getItem('refresh'),
+    isAuthenticated: false,
+  
+
 }
-
-export const logout = () => dispatch => {
-    dispatch({
-        type: LOGOUT
-    })
+export default function(state=initialState,action){
+    switch (action.type){
+        case GOOGLE_AUTH_SUCCESS:
+            console.log(action.payload)
+            localStorage.setItem('access',action.payload.access)
+            return{
+                ...state,
+                isAuthenticated: true,
+                access: action.payload.access,
+                refresh: action.payload.refresh
+            }
+        case GOOGLE_AUTH_FAIL:
+        case LOGOUT:
+            console.log(action.payload)
+            localStorage.removeItem('access')
+            localStorage.removeItem('refresh')
+            return{
+                ...state,
+                isAuthenticated: false,
+                access: null,
+                refresh: null
+            }
+        default:
+            return state
+    }
 }
