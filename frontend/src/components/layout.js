@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import Navbar from "./Navbar";
+import Navbar from "./navbar";
 import {googleAuthenticate} from "../actions/auth";
 import {connect} from "react-redux";
 import {useLocation} from "react-router-dom";
@@ -7,7 +7,7 @@ import queryString from "query-string";
 
 const Layout = (props) => {
     const location = useLocation()
-    useEffect(() => {
+    useEffect((props) => {
         const values = queryString.parse(location.search)
         const state = values.state ? values.state : null
         const code = values.code ? values.code : null
