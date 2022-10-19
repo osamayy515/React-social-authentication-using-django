@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Link, Navigate} from 'react-router-dom'
-import {connect, useDispatch, useSelector} from 'react-redux'
+import {connect} from 'react-redux'
 
 import styled from "styled-components";
 import axios from "axios";
